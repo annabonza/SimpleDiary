@@ -1,4 +1,5 @@
 from database import create_table, add_entry, get_entries
+import re
 
 menu = """Please select one of the following options:
 1) New Entry
@@ -12,7 +13,11 @@ welcome = "Hi! I'm your diary.\nFell welcome to share your thoughts!"
 
 def prompt_new_entry():
 	entry_content = input("Tell me about your day! ")
-	entry_date = input("Please enter the date: ")
+	entry_date = ''
+	pattern = r"\d\d-\d\d-\d\d\d\d"
+
+	while entry_date not in re.findall(pattern, entry_date):
+		entry_date = input('Please enter the date (dd-mm-yyyy): ')
 
 	add_entry(entry_content, entry_date)
 
